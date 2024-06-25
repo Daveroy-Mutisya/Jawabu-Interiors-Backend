@@ -1,6 +1,7 @@
-from models import Status, db,Projects,Users
+from models import Status, db, Projects, Users
 from datetime import datetime
 from app import app
+from werkzeug.security import generate_password_hash
 
 def main():
     with app.app_context():
@@ -9,43 +10,53 @@ def main():
 
         # Clear the database (for testing purposes)
         Projects.query.delete()
+        Users.query.delete()
 
         db.session.commit()
 
+        # Create users
         users = [
             Users(
                 name="Dave Roy Mutisya",
                 username="Mr.Mutisya",
                 email="daveroymutisya2@gmail.com",
-                _password="G0D15L0v3s_U",
+                _password=generate_password_hash("G0D15L0v3s_U"),
                 image="",
                 department="IT and Marketing Department",
                 status=Status.ONLINE,
-                director_id=1  # Assuming director ID 1 exists
+                super_user=True
             ),
             Users(
                 name="Natasha Wairimu",
                 username="E.N.W",
                 email="e.n.wairi@gmail.com",
-                _password="",
+                _password=generate_password_hash("password"),  # Replace with actual password
                 image="",
                 department="IT and Marketing Department",
-                status=Status.ONLINE
+                status=Status.ONLINE,
+                super_user=False
             ),
             Users(
                 name="Yvonne Mutisya",
-                username="",
+                username="Y.Mutisya",
                 email="yvonne.mutisya@gmail.com",
-                _password="",
+                _password=generate_password_hash("password"),  # Replace with actual password
                 image="",
-                role="Director and C.E.O of Jawabu Interiors",
-                status=Status.ONLINE
+                department="Executive",
+                status=Status.ONLINE,
+                super_user=True
             )
         ]
 
         db.session.add_all(users)
         db.session.commit()
 
+        # Retrieve users to assign them as owners of projects
+        dave = Users.query.filter_by(email="daveroymutisya2@gmail.com").first()
+        natasha = Users.query.filter_by(email="e.n.wairi@gmail.com").first()
+        yvonne = Users.query.filter_by(email="yvonne.mutisya@gmail.com").first()
+
+        # Create projects and assign to users
         projects = [
             Projects(
                 title="Corporate and Commercial Clients",
@@ -53,7 +64,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=dave.id
             ),
             Projects(
                 title="Hospitality Industry",
@@ -61,7 +73,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=natasha.id
             ),
             Projects(
                 title="Banking Industry",
@@ -69,7 +82,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=dave.id
             ),
             Projects(
                 title="Institutions",
@@ -77,7 +91,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=yvonne.id
             ),
             Projects(
                 title="Residential Works",
@@ -85,7 +100,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=dave.id
             ),
             Projects(
                 title="Landscaping",
@@ -93,7 +109,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=yvonne.id
             ),
             Projects(
                 title="Hospitality Industry",
@@ -101,7 +118,8 @@ def main():
                 image="",
                 description="",
                 location="",
-                created_at=datetime.utcnow()
+                date="",
+                user_id=natasha.id
             )
         ]
 

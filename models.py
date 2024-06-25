@@ -1,5 +1,4 @@
 # models.py
-
 from sqlalchemy_serializer import SerializerMixin
 from enum import Enum
 from sqlalchemy.orm import validates
