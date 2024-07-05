@@ -68,14 +68,51 @@ def main():
                 user_id=dave.id
             ),
             Projects(
+                title="Corporate and Commercial Clients",
+                project_name="Kenya Red Cross – (prequalified as supplier 2019-2020).",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=natasha.id
+                ),
+            Projects(
+                title="Corporate and Commercial Clients",
+                project_name="Juba Airways, Panari Plaza-Office Fit Outs",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+                ),
+            Projects(
                 title="Hospitality Industry",
                 project_name="Dream Beam House-Coffee Lounge- Restaurant Interior Fit Outs.",
                 image="",
                 description="",
                 location="",
                 date="",
+                user_id=dave.id
+            ),
+            Projects(
+                title="Hospitality Industry",
+                project_name="Kapital Coffee Lounge, Lonrho House – Restaurant Interior Fit Outs.",
+                image="",
+                description="",
+                location="",
+                date="",
                 user_id=natasha.id
             ),
+            Projects(
+                title="Hospitality Industry",
+                project_name="The Mug Coffee House- Restaurant Interior Fit Outs.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=natasha.id
+            ),
+
             Projects(
                 title="Banking Industry",
                 project_name="Kenya Post Office Savings Bank – Bank and Office Fit Outs.",
@@ -86,13 +123,49 @@ def main():
                 user_id=dave.id
             ),
             Projects(
+                title="Banking Industry",
+                project_name="Family Bank (prequalified for construction major civil works 2019-2020).",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=natasha.id
+            ),
+            Projects(
+                title="Banking Industry",
+                project_name="COOP Bank (prequalified for construction major civil works 2018-2020).",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
                 title="Institutions",
                 project_name="CITAM- Interior Office fitouts, Landscaping and civil works.",
                 image="",
                 description="",
                 location="",
                 date="",
+                user_id=dave.id
+            ),
+            Projects(
+                title="Institutions",
+                project_name="IVC Medical Clinic, Eldoret – Main Building Works.",
+                image="",
+                description="",
+                location="",
+                date="",
                 user_id=yvonne.id
+            ),
+            Projects(
+                title="Institutions",
+                project_name="Machakos University –Civil and Mechanical works, Interior Fit Outs and Finishes",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=natasha.id
             ),
             Projects(
                 title="Residential Works",

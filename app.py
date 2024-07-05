@@ -131,7 +131,6 @@ api.add_resource(TokenRefresh, '/refresh-token')
 ############## ROUTE FOR PROJECTS ############################################################
 class Project(Resource):
     @cross_origin()
-    @jwt_required()
     def get(self, id=None):
         if id:
             project = Projects.query.get(id)
@@ -214,7 +213,6 @@ api.add_resource(Project, '/projects', '/projects/<int:id>')
 ############## ROUTE FOR BLOGS ############################################################?
 class Blog(Resource):
     @cross_origin()
-    @jwt_required()
     def get(self, id=None):
         if id:
             blog = Blogs.query.get(id)
