@@ -10,6 +10,9 @@ from flask_cors import CORS, cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import timedelta
 import logging
+import re
+from datetime import datetime
+
 
 profile_bp = Blueprint('profile', __name__)
 app = Flask(__name__)
@@ -285,6 +288,96 @@ class Blog(Resource):
         return {"message": "Blog deleted"}, 200
 
 api.add_resource(Blog, '/blogs', '/blogs/<int:id>')
+
+#############ROUTES FOR FETCHING USERS#####################################################
+class User(Resource):
+    @cross_origin()
+    def get(self, id=None):
+        if id:
+            user = Users.query.get(id)
+            if not user:
+                return {"error": "User not found"}, 404
+            return jsonify(user.serialize()), 200
+
+        users = Users.query.all()
+        serialized_users = [user.serialize() for user in users]
+        return jsonify(serialized_users), 200
+
+    @cross_origin()
+    @jwt_required()
+    def post(self):
+        data = request.get_json()
+        if not data:
+            return {"error": "Missing data in request"}, 400
+
+        # Validate email
+        email = data.get('email')
+        assert '@' in email, "Email must contain '@'"
+        assert re.match(r"[^@]+@[^@]+\.[^@]+", email), "Invalid email format"
+
+        # Hash password
+        password = data.get('password')
+        hashed_password = generate_password_hash(password)
+
+        user = Users(
+            name=data.get('name'),
+            username=data.get('username'),
+            email=email,
+            _password=hashed_password,
+            image=data.get('image'),
+            department=data.get('department'),
+            status=Status.ONLINE,  # Default status
+            bio=data.get('bio'),
+            super_user=data.get('super_user', False),
+            created_at=datetime.utcnow()
+        )
+
+        db.session.add(user)
+        db.session.commit()
+
+        return user.serialize(), 201
+
+    @cross_origin()
+    @jwt_required()
+    def put(self, id):
+        data = request.get_json()
+        if not data:
+            return {"error": "Missing data in request"}, 400
+
+        user = Users.query.get(id)
+        if not user:
+            return {"error": "User not found"}, 404
+
+        user.name = data.get('name', user.name)
+        user.username = data.get('username', user.username)
+        user.email = data.get('email', user.email)
+        if 'password' in data:
+            user._password = generate_password_hash(data['password'])
+        user.image = data.get('image', user.image)
+        user.department = data.get('department', user.department)
+        user.status = data.get('status', user.status)
+        user.bio = data.get('bio', user.bio)
+        user.super_user = data.get('super_user', user.super_user)
+
+        db.session.commit()
+
+        return user.serialize(), 200
+
+    @cross_origin()
+    @jwt_required()
+    def delete(self, id):
+        user = Users.query.get(id)
+        if not user:
+            return {"error": "User not found"}, 404
+
+        db.session.delete(user)
+        db.session.commit()
+
+        return {"message": "User deleted"}, 200
+
+api.add_resource(User, '/users', '/users/<int:id>')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
