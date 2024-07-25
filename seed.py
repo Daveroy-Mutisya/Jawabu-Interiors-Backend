@@ -1,4 +1,4 @@
-from models import Status, db, Projects, Users
+from models import Status, db, Projects, Users, Blogs  # Ensure you import the Blogs model
 from datetime import datetime
 from app import app
 from werkzeug.security import generate_password_hash
@@ -11,6 +11,7 @@ def main():
         # Clear the database (for testing purposes)
         Projects.query.delete()
         Users.query.delete()
+        Blogs.query.delete()
 
         db.session.commit()
 
@@ -51,7 +52,7 @@ def main():
         db.session.add_all(users)
         db.session.commit()
 
-        # Retrieve users to assign them as owners of projects
+        # Retrieve users to assign them as owners of projects and blogs
         dave = Users.query.filter_by(email="daveroymutisya2@gmail.com").first()
         natasha = Users.query.filter_by(email="e.n.wairi@gmail.com").first()
         yvonne = Users.query.filter_by(email="yvonne.mutisya@gmail.com").first()
@@ -75,7 +76,7 @@ def main():
                 location="",
                 date="",
                 user_id=natasha.id
-                ),
+            ),
             Projects(
                 title="Corporate and Commercial Clients",
                 project_name="Juba Airways, Panari Plaza-Office Fit Outs",
@@ -84,7 +85,7 @@ def main():
                 location="",
                 date="",
                 user_id=yvonne.id
-                ),
+            ),
             Projects(
                 title="Hospitality Industry",
                 project_name="Dream Beam House-Coffee Lounge- Restaurant Interior Fit Outs.",
@@ -112,7 +113,6 @@ def main():
                 date="",
                 user_id=natasha.id
             ),
-
             Projects(
                 title="Banking Industry",
                 project_name="Kenya Post Office Savings Bank – Bank and Office Fit Outs.",
@@ -197,6 +197,43 @@ def main():
         ]
 
         db.session.add_all(projects)
+        db.session.commit()
+
+        # Create blogs and assign to users
+        blogs = [
+            Blogs(
+                title="The Rise of Interior Design",
+                content="Interior design is becoming more popular as people understand the importance of a well-decorated space...",
+                image="https://images.unsplash.com/photo-1463797221720-6b07e6426c24?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                author_id=dave.id
+            ),
+            Blogs(
+                title="Top 10 Design Trends of 2024",
+                content="As we move into 2024, here are the top 10 design trends that are making waves...",
+                image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                author_id=natasha.id
+            ),
+            Blogs(
+                title="How to Choose the Right Color Scheme",
+                content="Choosing the right color scheme for your space can be daunting. Here are some tips to help you get started...",
+                image="https://images.unsplash.com/photo-1662672324132-90d55416a840?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                author_id=yvonne.id
+            ),
+            Blogs(
+                title="The Benefits of Minimalist Design",
+                content="Minimalist design is not just about having less. It's about making space for what truly matters...",
+                image="https://images.unsplash.com/photo-1698674913743-88148adc7b26?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                author_id=dave.id
+            ),
+            Blogs(
+                title="Maximizing Small Spaces",
+                content="Living in a small space doesn't mean you have to sacrifice style. Here are some tips to make the most of your space...",
+                image="https://images.unsplash.com/photo-1653974123177-fe9c05fb79e6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                author_id=natasha.id
+            )
+        ]
+
+        db.session.add_all(blogs)
         db.session.commit()
 
         print("Done seeding!")

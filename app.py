@@ -16,7 +16,7 @@ from datetime import datetime
 
 profile_bp = Blueprint('profile', __name__)
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///JawabuInteriors.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///JW.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')  
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=120) 
@@ -54,6 +54,19 @@ def handle_data():
 @app.route('/', methods=['GET'])
 def home():
     return "Welcome to Jawabu Interiors Backend"
+
+
+# ROUTE FOR CONTACT FORM
+
+class Contact(Resource):
+    @cross_origin
+    def post(self):
+        data = request.get_json()
+        email = data.get_json()
+        name = data.get_json()
+        message = data.get_json()
+        subject = data.get_json()
+        
 
 ############ LOGIN ROUTE ################################################################################################
 def create_jwt_token(user):
@@ -131,16 +144,18 @@ class TokenRefresh(Resource):
 
 api.add_resource(TokenRefresh, '/refresh-token')
 
-############## ROUTE FOR PROJECTS ############################################################
+##########################ROUTE FOR PROJECTS ##############################################################################################
 class Project(Resource):
     @cross_origin()
     def get(self, id=None):
         if id:
+            # Fetch a single project by ID
             project = Projects.query.get(id)
             if not project:
                 return {"error": "Project not found"}, 404
             return jsonify(project.serialize()), 200
 
+        # Fetch all projects
         projects = Projects.query.all()
         serialized_projects = [project.serialize() for project in projects]
         return jsonify(serialized_projects), 200
@@ -211,6 +226,7 @@ class Project(Resource):
 
         return {"message": "Project deleted"}, 200
 
+# Add the resource to the API
 api.add_resource(Project, '/projects', '/projects/<int:id>')
 
 ############## ROUTE FOR BLOGS ############################################################?
@@ -218,11 +234,13 @@ class Blog(Resource):
     @cross_origin()
     def get(self, id=None):
         if id:
+            # Fetch a single blog by ID
             blog = Blogs.query.get(id)
             if not blog:
                 return {"error": "Blog not found"}, 404
             return jsonify(blog.serialize()), 200
 
+        # Fetch all blogs
         blogs = Blogs.query.all()
         serialized_blogs = [blog.serialize() for blog in blogs]
         return jsonify(serialized_blogs), 200
@@ -287,6 +305,7 @@ class Blog(Resource):
 
         return {"message": "Blog deleted"}, 200
 
+# Add the resource to the API
 api.add_resource(Blog, '/blogs', '/blogs/<int:id>')
 
 #############ROUTES FOR FETCHING USERS#####################################################
