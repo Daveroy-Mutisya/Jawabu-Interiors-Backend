@@ -1,4 +1,5 @@
-from models import Status, db, Projects, Users, Blogs  # Ensure you import the Blogs model
+# Import the necessary modules
+from models import Status, db, Projects, Users, Blogs, Contact, Project_Inquiry_Form  # Ensure you import the required models
 from datetime import datetime
 from app import app
 from werkzeug.security import generate_password_hash
@@ -12,6 +13,8 @@ def main():
         Projects.query.delete()
         Users.query.delete()
         Blogs.query.delete()
+        Contact.query.delete()
+        Project_Inquiry_Form.query.delete()
 
         db.session.commit()
 
@@ -234,6 +237,89 @@ def main():
         ]
 
         db.session.add_all(blogs)
+        db.session.commit()
+
+        # Create contact forms
+        contacts = [
+            Contact(
+                first_name="John",
+                surname="Doe",
+                email="john.doe@example.com",
+                phone_number="123-456-7890",
+                project_type="Interior Design",
+                description="I would like to know more about your services."
+            ),
+            Contact(
+                first_name="Jane",
+                surname="Smith",
+                email="jane.smith@example.com",
+                phone_number="098-765-4321",
+                project_type="Office Renovation",
+                description="Can you provide a quote for a new project?"
+            ),
+            Contact(
+                first_name="Alice",
+                surname="Johnson",
+                email="alice.johnson@example.com",
+                phone_number="555-555-5555",
+                project_type="Home Renovation",
+                description="What are your working hours?"
+            )
+        ]
+
+        db.session.add_all(contacts)
+        db.session.commit()
+
+        # Create project inquiry forms
+        pifs = [
+            Project_Inquiry_Form(
+                first_name="Charlie",
+                surname="Brown",
+                email="charlie.brown@example.com",
+                phone_number="111-222-3333",
+                project_type="Office Renovation",
+                project_address="123 Main St",
+                square_footage="2000 sqft",
+                project_goals="We need to renovate our new office space.",
+                project_start_date="2024-08-01",
+                project_end_date="2024-12-01",
+                project_furniture_budget="$10,000",
+                project_construction_budget="$50,000",
+                description="Complete office renovation including furniture and construction."
+            ),
+            Project_Inquiry_Form(
+                first_name="Lucy",
+                surname="Van Pelt",
+                email="lucy.vanpelt@example.com",
+                phone_number="444-555-6666",
+                project_type="Home Interior Design",
+                project_address="456 Elm St",
+                square_footage="1500 sqft",
+                project_goals="Looking to redesign the interior of our home.",
+                project_start_date="2024-09-01",
+                project_end_date="2024-11-01",
+                project_furniture_budget="$8,000",
+                project_construction_budget="$30,000",
+                description="Redesign the interior including new furniture and minor construction."
+            ),
+            Project_Inquiry_Form(
+                first_name="Linus",
+                surname="Van Pelt",
+                email="linus.vanpelt@example.com",
+                phone_number="777-888-9999",
+                project_type="Retail Store Fit Out",
+                project_address="789 Pine St",
+                square_footage="3000 sqft",
+                project_goals="We are opening a new retail store and need a fit out.",
+                project_start_date="2024-10-01",
+                project_end_date="2025-01-01",
+                project_furniture_budget="$20,000",
+                project_construction_budget="$80,000",
+                description="Complete fit out for a new retail store."
+            )
+        ]
+
+        db.session.add_all(pifs)
         db.session.commit()
 
         print("Done seeding!")

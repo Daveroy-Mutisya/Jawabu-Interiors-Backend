@@ -4,7 +4,7 @@ from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 import os
 from flask_restful import Api, Resource
-from models import db, Projects, Blogs, Users, Status
+from models import db, Projects, Blogs, Users, Status,Project_Inquiry_Form,Contact
 from flask_migrate import Migrate
 from flask_cors import CORS, cross_origin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -54,19 +54,6 @@ def handle_data():
 @app.route('/', methods=['GET'])
 def home():
     return "Welcome to Jawabu Interiors Backend"
-
-
-# ROUTE FOR CONTACT FORM
-
-class Contact(Resource):
-    @cross_origin
-    def post(self):
-        data = request.get_json()
-        email = data.get_json()
-        name = data.get_json()
-        message = data.get_json()
-        subject = data.get_json()
-        
 
 ############ LOGIN ROUTE ################################################################################################
 def create_jwt_token(user):
@@ -397,6 +384,143 @@ class User(Resource):
 api.add_resource(User, '/users', '/users/<int:id>')
 
 
+class ContactAPI(Resource):
+    @cross_origin()
+    def get(self, id=None):
+        if id:
+            contact = Contact.query.get(id)
+            if not contact:
+                return {"error": "Contact not found"}, 404
+            return jsonify(contact.serialize()), 200
+
+        contacts = Contact.query.all()
+        serialized_contacts = [contact.serialize() for contact in contacts]
+        return jsonify(serialized_contacts), 200
+
+    @cross_origin()
+    def post(self):
+        data = request.get_json()
+        if not data:
+            return {"error": "Missing data in request"}, 400
+
+        contact = Contact(
+            first_name=data.get('first_name'),
+            surname=data.get('surname'),
+            email=data.get('email'),
+            phone_number=data.get('phone_number'),
+            project_type=data.get('project_type'),
+            description=data.get('description')
+        )
+
+        db.session.add(contact)
+        db.session.commit()
+
+        msg = Message("New Contact Form Submission",
+                      sender="your-email@example.com",
+                      recipients=["info@jawabuinteriors.co.ke"])
+        msg.body = f"""
+        New contact form submission:
+        
+        First Name: {contact.first_name}
+        Surname: {contact.surname}
+        Email: {contact.email}
+        Phone Number: {contact.phone_number}
+        Project Type: {contact.project_type}
+        Description: {contact.description}
+        """
+        mail.send(msg)
+
+        return contact.serialize(), 201
+
+    @cross_origin()
+    @jwt_required()
+    def delete(self, id):
+        contact = Contact.query.get(id)
+        if not contact:
+            return {"error": "Contact not found"}, 404
+
+        db.session.delete(contact)
+        db.session.commit()
+
+        return {"message": "Contact deleted"}, 200
+# Register the API endpoints
+api.add_resource(ContactAPI, '/contacts', '/contacts/<int:id>')
+
+class ProjectInquiryAPI(Resource):
+    @cross_origin()
+    def get(self, id=None):
+        if id:
+            inquiry = Project_Inquiry_Form.query.get(id)
+            if not inquiry:
+                return {"error": "Project Inquiry not found"}, 404
+            return jsonify(inquiry.serialize()), 200
+
+        inquiries = Project_Inquiry_Form.query.all()
+        serialized_inquiries = [inquiry.serialize() for inquiry in inquiries]
+        return jsonify(serialized_inquiries), 200
+
+    @cross_origin()
+    def post(self):
+        data = request.get_json()
+        if not data:
+            return {"error": "Missing data in request"}, 400
+
+        inquiry = Project_Inquiry_Form(
+            first_name=data.get('first_name'),
+            surname=data.get('surname'),
+            email=data.get('email'),
+            phone_number=data.get('phone_number'),
+            project_type=data.get('project_type'),
+            project_address=data.get('project_address'),
+            square_footage=data.get('square_footage'),
+            project_goals=data.get('project_goals'),
+            project_start_date=data.get('project_start_date'),
+            project_end_date=data.get('project_end_date'),
+            project_furniture_budget=data.get('project_furniture_budget'),
+            project_construction_budget=data.get('project_construction_budget'),
+            description=data.get('description')
+        )
+
+        db.session.add(inquiry)
+        db.session.commit()
+
+        msg = Message("New Project Inquiry Form Submission",
+                      sender="your-email@example.com",
+                      recipients=["info@jawabuinteriors.co.ke"])
+        msg.body = f"""
+        New project inquiry form submission:
+        
+        First Name: {inquiry.first_name}
+        Surname: {inquiry.surname}
+        Email: {inquiry.email}
+        Phone Number: {inquiry.phone_number}
+        Project Type: {inquiry.project_type}
+        Project Address: {inquiry.project_address}
+        Square Footage: {inquiry.square_footage}
+        Project Goals: {inquiry.project_goals}
+        Project Start Date: {inquiry.project_start_date}
+        Project End Date: {inquiry.project_end_date}
+        Project Furniture Budget: {inquiry.project_furniture_budget}
+        Project Construction Budget: {inquiry.project_construction_budget}
+        Description: {inquiry.description}
+        """
+        mail.send(msg)
+
+        return inquiry.serialize(), 201
+
+    @cross_origin()
+    @jwt_required()
+    def delete(self, id):
+        inquiry = Project_Inquiry_Form.query.get(id)
+        if not inquiry:
+            return {"error": "Project Inquiry not found"}, 404
+
+        db.session.delete(inquiry)
+        db.session.commit()
+
+        return {"message": "Project Inquiry deleted"}, 200
+
+api.add_resource(ProjectInquiryAPI, '/project_inquiries', '/project_inquiries/<int:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
