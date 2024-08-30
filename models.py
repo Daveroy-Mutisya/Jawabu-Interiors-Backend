@@ -137,58 +137,5 @@ class Contact(db.Model, SerializerMixin):
     def __repr__(self):
         return f"Contact <{self.id}, {self.first_name}, {self.surname}, {self.email}, {self.phone_number}, {self.project_type}, {self.description}>"
 
-# Project Inquiry Form Model
-class Project_Inquiry_Form(db.Model, SerializerMixin):
-    __tablename__ = 'PIF'
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String, nullable=False)
-    surname = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False)
-    phone_number = db.Column(db.String, nullable=False)
-    project_type = db.Column(db.String, nullable=False)
-    project_address = db.Column(db.String, nullable=False)
-    square_footage = db.Column(db.String, nullable=False)
-    project_goals = db.Column(db.String, nullable=False)
-    project_start_date = db.Column(db.String, nullable=False)
-    project_end_date = db.Column(db.String, nullable=False)
-    project_furniture_budget = db.Column(db.String, nullable=False)
-    project_construction_budget = db.Column(db.String, nullable=False)
-    description = db.Column(db.Text, nullable=False)
 
-    def serialize(self):
-        return {
-            'id': self.id,
-            'first_name': self.first_name,
-            'surname': self.surname,
-            'email': self.email,
-            'phone_number': self.phone_number,
-            'project_type': self.project_type,
-            'project_address': self.project_address,
-            'square_footage': self.square_footage,
-            'project_goals': self.project_goals,
-            'project_start_date': self.project_start_date,
-            'project_end_date': self.project_end_date,
-            'project_furniture_budget': self.project_furniture_budget,
-            'project_construction_budget': self.project_construction_budget,
-            'description': self.description,
-        }
-
-    def __repr__(self):
-        return f"Project Inquiry Form <{self.id}, {self.first_name}, {self.surname}, {self.email}, {self.phone_number}, {self.project_type}, {self.project_address}, {self.square_footage}, {self.project_goals}, {self.project_start_date}, {self.project_end_date}, {self.project_furniture_budget}, {self.project_construction_budget}, {self.description}>"
-
-class Background_Content(db.Model, SerializerMixin):
-    __tablename__ = 'Background_Content'
-    id = db.Column(db.Integer, primary_key=True)
-    quotes = db.Column(db.String, nullable=False)
-    images = db.Column(db.String, nullable=False)
-
-    def serialize(self):
-        return {
-            'id': self.id,
-            'quotes': self.quotes,
-            'images': self.images,
-        }
-    
-    def __repr__(self):
-        return f"Background Content <{self.id}, {self.quotes}, {self.images}>"
 
