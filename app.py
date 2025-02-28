@@ -50,7 +50,7 @@ logging.basicConfig(level=logging.DEBUG)
 def handle_data():
     return 'This is some data from the API.'
 
-###################### HOME BACKEND ROUTE ##############################################################
+###################### HOME BACKEND ROUTE ###########################################################################################
 @app.route('/', methods=['GET'])
 def home():
     return "Welcome to Jawabu Interiors Backend"

@@ -1,8 +1,8 @@
-"""Initial migration.
+"""Initial migration
 
-Revision ID: 3da976865b30
+Revision ID: 5b5aad180ea9
 Revises: 
-Create Date: 2024-07-30 16:16:08.315967
+Create Date: 2025-02-05 14:34:54.710706
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3da976865b30'
+revision = '5b5aad180ea9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,23 +25,6 @@ def upgrade():
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('project_type', sa.String(), nullable=False),
-    sa.Column('description', sa.Text(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('PIF',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('first_name', sa.String(), nullable=False),
-    sa.Column('surname', sa.String(), nullable=False),
-    sa.Column('email', sa.String(), nullable=False),
-    sa.Column('phone_number', sa.String(), nullable=False),
-    sa.Column('project_type', sa.String(), nullable=False),
-    sa.Column('project_address', sa.String(), nullable=False),
-    sa.Column('square_footage', sa.String(), nullable=False),
-    sa.Column('project_goals', sa.String(), nullable=False),
-    sa.Column('project_start_date', sa.String(), nullable=False),
-    sa.Column('project_end_date', sa.String(), nullable=False),
-    sa.Column('project_furniture_budget', sa.String(), nullable=False),
-    sa.Column('project_construction_budget', sa.String(), nullable=False),
     sa.Column('description', sa.Text(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
@@ -91,6 +74,5 @@ def downgrade():
     op.drop_table('Projects')
     op.drop_table('BlogPost')
     op.drop_table('Users')
-    op.drop_table('PIF')
     op.drop_table('ContactForm')
     # ### end Alembic commands ###

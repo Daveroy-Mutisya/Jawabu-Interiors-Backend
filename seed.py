@@ -22,26 +22,6 @@ def main():
         # Create users
         users = [
             Users(
-                name="Dave Roy Mutisya",
-                username="Mr.Mutisya",
-                email="daveroymutisya2@gmail.com",
-                _password=generate_password_hash("password"),
-                image="",
-                department="IT and Marketing Department",
-                status=Status.ONLINE,
-                super_user=True
-            ),
-            Users(
-                name="Natasha Wairimu",
-                username="E.N.W",
-                email="e.n.wairi@gmail.com",
-                _password=generate_password_hash("password"),  # Replace with actual password
-                image="",
-                department="Architect",
-                status=Status.ONLINE,
-                super_user=False
-            ),
-            Users(
                 name="Yvonne Mutisya",
                 username="Y.Mutisya",
                 email="yvonne@jawabuinteriors.co.ke",
@@ -67,10 +47,19 @@ def main():
                 title="Corporate and Commercial Clients",
                 project_name="German Radio and TV- Interior fit outs and Renovations.",
                 image="",
+                description="This project involves the complete interior fit-out and renovation of a German radio and television facility. The scope of work includes designing and upgrading studios, control rooms, and office spaces to meet modern broadcasting standards. High-quality acoustic treatments, ergonomic workspaces, and state-of-the-art lighting and audiovisual installations are key aspects of the renovation. The project aims to create a functional, aesthetically pleasing, and technologically advanced environment that enhances workflow efficiency and supports high-quality media production.",
+                location="Nairobi",
+                date="",
+                user_id=yvonne.id
+            ),
+             Projects(
+                title="Corporate and Commercial Clients",
+                project_name="Kenya Red Cross – (prequalified as supplier 2019-2020).",
+                image="",
                 description="",
                 location="",
                 date="",
-                user_id=dave.id
+                user_id=yvonne.id
             ),
             Projects(
                 title="Corporate and Commercial Clients",
@@ -88,38 +77,11 @@ def main():
                 description="",
                 location="",
                 date="",
-                user_id=dave.id
+                user_id=yvonne.id
             ),
             Projects(
-                title="Banking Industry",
-                project_name="Kenya Post Office Savings Bank – Bank and Office Fit Outs.",
-                image="",
-                description="",
-                location="",
-                date="",
-                user_id=dave.id
-            ),
-            Projects(
-                title="Institutions",
-                project_name="CITAM- Interior Office fitouts, Landscaping and civil works.",
-                image="",
-                description="",
-                location="",
-                date="",
-                user_id=dave.id
-            ),
-            Projects(
-                title="Residential Works",
-                project_name="Hon. Julius Kones-Main Builders Works and Interior Fit Outs.",
-                image="",
-                description="",
-                location="",
-                date="",
-                user_id=dave.id
-            ),
-            Projects(
-                title="Landscaping",
-                project_name="CITAM Woodley.",
+                title="Hospitality Industry",
+                project_name="Kapital Coffee Lounge, Lonrho House – Restaurant Interior Fit Outs.",
                 image="",
                 description="",
                 location="",
@@ -133,7 +95,88 @@ def main():
                 description="",
                 location="",
                 date="",
-                user_id=natasha.id
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Banking Industry",
+                project_name="Kenya Post Office Savings Bank – Bank and Office Fit Outs.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Banking Industry",
+                project_name="Family Bank (prequalified for construction major civil works 2019-2020).",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Banking Industry",
+                project_name="COOP Bank (prequalified for construction major civil works 2018-2020).",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Institutions",
+                project_name="CITAM- Interior Office fitouts, Landscaping and civil works.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Institutions",
+                project_name="IVC Medical Clinic, Eldoret – Main Building Works.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Institutions",
+                project_name="Machakos University –Civil and Mechanical works, Interior Fit Outs and Finishes",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Residential Works",
+                project_name="Hon. Julius Kones-Main Builders Works and Interior Fit Outs.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Landscaping",
+                project_name="CITAM Woodley.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
+            ),
+            Projects(
+                title="Hospitality Industry",
+                project_name="Restaurant Interior Fit Outs.",
+                image="",
+                description="",
+                location="",
+                date="",
+                user_id=yvonne.id
             )
         ]
 
@@ -146,13 +189,13 @@ def main():
                 title="The Rise of Interior Design",
                 content="Interior design is becoming more popular as people understand the importance of a well-decorated space...",
                 image="https://images.unsplash.com/photo-1463797221720-6b07e6426c24?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                author_id=dave.id
+                author_id=yvonne.id
             ),
             Blogs(
                 title="Top 10 Design Trends of 2024",
                 content="As we move into 2024, here are the top 10 design trends that are making waves...",
                 image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                author_id=natasha.id
+                author_id=yvonne.id
             ),
             Blogs(
                 title="How to Choose the Right Color Scheme",
@@ -164,13 +207,13 @@ def main():
                 title="The Benefits of Minimalist Design",
                 content="Minimalist design is not just about having less. It's about making space for what truly matters...",
                 image="https://images.unsplash.com/photo-1698674913743-88148adc7b26?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                author_id=dave.id
+                author_id=yvonne.id
             ),
             Blogs(
                 title="Maximizing Small Spaces",
                 content="Living in a small space doesn't mean you have to sacrifice style. Here are some tips to make the most of your space...",
                 image="https://images.unsplash.com/photo-1653974123177-fe9c05fb79e6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                author_id=natasha.id
+                author_id=yvonne.id
             )
         ]
 
