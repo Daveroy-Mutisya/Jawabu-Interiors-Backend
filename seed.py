@@ -39,7 +39,7 @@ def main():
                 project_name="Dream Beam House-Coffee Lounge- Restaurant Interior Fit Outs.",
                 before_image="project_pics/Beforedreambean.jpeg",
                 after_image="project_pics/Afterdreambean.jpeg",
-                description="DreamBean Café underwent a full interior transformation aimed at elevating its atmosphere...",
+                description="Initially, the space appeared plain and lacked distinctive character, with minimal furnishings and a neutral palette that felt underwhelming. Through thoughtful interior design, the room was transformed into a warm and inviting living area. Rich textures, contemporary furniture, and layered lighting introduced depth and comfort. Elegant accents such as a patterned rug, stylish wall art, and lush greenery added visual interest and personality. The overall composition now reflects a well-balanced blend of style and function, creating a welcoming atmosphere ideal for relaxation or hosting. This project highlights the power of intentional design in redefining everyday spaces.",
                 location="Town, Nairobi",
                 date="",
                 user_id=yvonne.id
