@@ -68,7 +68,8 @@ class Projects(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=True)
     project_name = db.Column(db.String, nullable=True)
-    image = db.Column(db.String, nullable=True)
+    before_image = db.Column(db.String, nullable=True)
+    after_image = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
     location = db.Column(db.String, nullable=True)
     date = db.Column(db.String, nullable=True)
@@ -79,7 +80,8 @@ class Projects(db.Model, SerializerMixin):
             'id': self.id,
             'title': self.title,
             'project_name': self.project_name,
-            'image': self.image,
+            'before_image': self.before_image,
+            'after_image': self.after_image,
             'description': self.description,
             'location': self.location,
             'date': self.date,
@@ -87,7 +89,7 @@ class Projects(db.Model, SerializerMixin):
         }
 
     def __repr__(self):
-        return f"Projects <{self.id}, {self.title}, {self.project_name}, {self.image}, {self.description}, {self.location}, {self.date}, {self.user_id}>"
+        return f"Projects <{self.id}, {self.title}, {self.project_name}, {self.before_image},{self.after_image}, {self.description}, {self.location}, {self.date}, {self.user_id}>"
 
 # Blogs Model
 class Blogs(db.Model, SerializerMixin):
