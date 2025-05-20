@@ -12,6 +12,8 @@ from datetime import timedelta
 import logging
 import re
 from datetime import datetime
+from flask import send_from_directory,abort
+import os
 
 
 profile_bp = Blueprint('profile', __name__)
@@ -136,16 +138,27 @@ class Project(Resource):
     @cross_origin()
     def get(self, id=None):
         if id:
-            # Fetch a single project by ID
             project = Projects.query.get(id)
             if not project:
                 return {"error": "Project not found"}, 404
             return jsonify(project.serialize()), 200
 
-        # Fetch all projects
         projects = Projects.query.all()
         serialized_projects = [project.serialize() for project in projects]
         return jsonify(serialized_projects), 200
+    
+    @app.route('/project_pics/<path:filename>')
+    def serve_project_pic(filename):
+      directory = os.path.join(app.root_path, 'project_pics')
+      full_path = os.path.join(directory, filename)
+    
+      print(f"Attempting to serve: {full_path}")
+    
+      if not os.path.exists(full_path):
+        print("File does not exist.")
+        abort(404)
+
+      return send_from_directory(directory, filename)
 
     @cross_origin()
     @jwt_required()
@@ -155,11 +168,10 @@ class Project(Resource):
             return {"error": "Missing data in request"}, 400
 
         current_user = get_jwt_identity()
-        logging.debug(f"Current user from JWT: {current_user}")
         user_email = current_user.get('email')
         if not user_email:
             return {"error": "User email not found in token"}, 400
-        
+
         user = Users.query.filter_by(email=user_email).first()
         if not user:
             return {"error": "User not found"}, 404
@@ -167,7 +179,8 @@ class Project(Resource):
         project = Projects(
             title=data.get('title'),
             project_name=data.get('project_name'),
-            image=data.get('image'),
+            before_image=data.get('before_image'),
+            after_image=data.get('after_image'),
             description=data.get('description'),
             location=data.get('location'),
             date=data.get('date'),
@@ -192,7 +205,8 @@ class Project(Resource):
 
         project.title = data.get('title', project.title)
         project.project_name = data.get('project_name', project.project_name)
-        project.image = data.get('image', project.image)
+        project.before_image = data.get('before_image', project.before_image)
+        project.after_image = data.get('after_image', project.after_image)
         project.description = data.get('description', project.description)
         project.location = data.get('location', project.location)
         project.date = data.get('date', project.date)
@@ -213,8 +227,8 @@ class Project(Resource):
 
         return {"message": "Project deleted"}, 200
 
-# Add the resource to the API
 api.add_resource(Project, '/projects', '/projects/<int:id>')
+
 
 ############## ROUTE FOR BLOGS ############################################################
 class Blog(Resource):
