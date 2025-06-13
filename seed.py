@@ -43,7 +43,27 @@ def main():
                 location="Town, Nairobi",
                 date="",
                 user_id=yvonne.id
+            ),
+            Projects(
+                title="Residential Industry",
+                project_name="Lunawood Gazebo Fit Outs.",
+                before_image="project_pics/LunaWoodGazeboBefore.jpeg",
+                after_image="project_pics/LunaWoodGazeboAfter.jpeg",
+                description="This rooftop underwent a dramatic transformation, evolving from a plain, exposed concrete surface into a vibrant, inviting outdoor retreat. Using LunaWood, we introduced a sleek pergola structure that brings warmth and architectural interest to the space. The addition of high-quality artificial turf infuses the area with a natural, green aesthetic while enhancing comfort and usability. Together, these elements create a functional and stylish rooftop environment—perfect for relaxing, hosting, or simply enjoying the view. This project showcases how sustainable materials and smart design can elevate any underutilized space into a standout feature.",
+                location="Lavington, Nairobi",
+                date="",
+                user_id=yvonne.id
             )
+            # Projects(
+            #     title="Commercial Office Industry",
+            #     project_name="Letshego Renovations",
+            #     before_image="project_pics/LunaWoodGazeboBefore.jpeg",
+            #     after_image="project_pics/LunaWoodGazeboAfter.jpeg",
+            #     description="Initially, the space appeared plain and lacked distinctive character, with minimal furnishings and a neutral palette that felt underwhelming. Through thoughtful interior design, the room was transformed into a warm and inviting living area. Rich textures, contemporary furniture, and layered lighting introduced depth and comfort. Elegant accents such as a patterned rug, stylish wall art, and lush greenery added visual interest and personality. The overall composition now reflects a well-balanced blend of style and function, creating a welcoming atmosphere ideal for relaxation or hosting. This project highlights the power of intentional design in redefining everyday spaces.",
+            #     location="Town, Nairobi",
+            #     date="",
+            #     user_id=yvonne.id
+            # )
         ]
         db.session.add_all(projects)
         db.session.commit()
