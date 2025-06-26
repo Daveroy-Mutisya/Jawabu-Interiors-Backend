@@ -53,14 +53,14 @@ def main():
                 location="Lavington, Nairobi",
                 date="",
                 user_id=yvonne.id
-            )
+            ),
             Projects(
                 title="Commercial Office Industry",
                 project_name="Letshego Renovations",
                 before_image="project_pics/LetsgoBefore.jpeg",
                 after_image="project_pics/LetsgoAfter.jpeg",
                 description="The Letshego project was one of our most transformative and rewarding undertakings, where we reimagined a deteriorating space plagued by persistent roofing issues and uninspiring, lackluster interiors. The original environment suffered from years of water damage, leaving the structure vulnerable and visually uninviting. Our design team approached the project with a vision to breathe life into the space, introducing bold colors, creative finishes, and carefully curated materials that not only addressed the structural challenges but also elevated the overall ambiance. The result was a vibrant, welcoming environment that reflected both functionality and aesthetic harmony, turning what was once a neglected interior into a dynamic and uplifting space.",
-                location="Town, Nairobi",
+                location="316 Second Ngong Avenue, Nairobi, Nairobi County ",
                 date="",
                 user_id=yvonne.id
             )
